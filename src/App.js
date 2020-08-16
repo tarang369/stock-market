@@ -1,24 +1,26 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import StockRow from './components/StockRow';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <div className='container'>
+        <div className='col-md-5 mt-5'>
+          <div className='card'>
+            <ul className='list-group list-group-flush'>
+              <StockRow ticker='fb' />
+              <StockRow ticker='amzn' />
+              <StockRow ticker='aapl' />
+              <StockRow ticker='nflx' />
+              <StockRow ticker='goog' />
+              {/* <StockRow ticker='msft' />
+              <StockRow ticker='tsla' /> */}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
