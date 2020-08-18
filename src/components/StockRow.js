@@ -68,22 +68,36 @@ export default class StockRow extends Component {
       date: data.date,
       time: data.time,
     });
-    stock.getYesterdayClose(this.props.ticker, data.date, yesData => {
-      const dollar_change = (data.price - yesData.price).toFixed(2);
-      const percent_change = ((100 * dollar_change) / yesData.price).toFixed(2);
-      this.setState({
-        dollar_change: `${dollar_change}`,
-        percent_change: `(${percent_change}%)`,
-      });
-    });
   }
 
   componentDidMount() {
     stock.latestPrice(this.props.ticker, this.applyData.bind(this));
   }
+  componentDidUpdate(prevProps) {
+    const { price, canRetrieve } = this.state;
+    const { ticker, lastTradingDate } = this.props;
+    if (prevProps.lastTradingDate === null && lastTradingDate != null) {
+      this.setState({
+        canRetrieve: true,
+      });
+    }
 
+    if (canRetrieve && price != null) {
+      stock.getYesterdayClose(ticker, lastTradingDate, yesData => {
+        const dollar_change = (price - yesData.price).toFixed(2);
+        const percent_change = ((100 * dollar_change) / yesData.price).toFixed(
+          2
+        );
+        this.setState({
+          dollar_change: `${dollar_change}`,
+          percent_change: `(${percent_change}%)`,
+          canRetrieve: false,
+        });
+      });
+    }
+  }
   render() {
-    const { time, price, date, dollar_change, percent_change } = this.state;
+    const { price, dollar_change, percent_change } = this.state;
     const { ticker } = this.props;
     return (
       <li className='list-group-item'>

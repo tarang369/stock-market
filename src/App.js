@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react';
-import StockRow from './components/StockRow';
+import StockList from './components/StockList';
 
 function App() {
   return (
@@ -9,15 +9,7 @@ function App() {
       <div className='container'>
         <div className='col-md-5 mt-5'>
           <div className='card'>
-            <ul className='list-group list-group-flush'>
-              <StockRow ticker='fb' />
-              <StockRow ticker='amzn' />
-              <StockRow ticker='aapl' />
-              <StockRow ticker='nflx' />
-              <StockRow ticker='goog' />
-              {/* <StockRow ticker='msft' />
-              <StockRow ticker='tsla' /> */}
-            </ul>
+            <StockList />
           </div>
         </div>
       </div>
